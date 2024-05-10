@@ -28,10 +28,10 @@ def check_Checksum(messages, checksum):
     
     errordetect = result +checksum
     errordetect ^=0xFFFF
-    if errordetect :
-        return 0
-    else:
+    if errordetect==0 :
         return 1
+    else:
+        return 0
 
 n = int(input("How many times do you want to test : "))
 for i in range(n):
