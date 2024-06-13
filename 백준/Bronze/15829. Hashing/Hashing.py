@@ -7,4 +7,4 @@ for i in range(n):
     head = int(ord(arr[i])) - 96
     result += head * pow(31, i)
 
-print(result)
+print(result%1234567891)
