@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 n = int(input())
 score_a, score_b = 0, 0
 for _ in range(n):
