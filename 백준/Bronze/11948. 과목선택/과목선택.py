@@ -1,0 +1,5 @@
+a = list(int(input()) for _ in range(4))
+b = list(int(input()) for _ in range(2))
+a.sort(reverse=True)
+ans = sum(a[:3]) + max(b)
+print(ans)
