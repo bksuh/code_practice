@@ -1,25 +1,27 @@
-import collections
+from collections import deque
 
 n, m = map(int, input().split())
-s = input()
+s = deque(input()[::-1])
+ans = deque([])
+indi_x, indi_a = True, True
+a = list('AEIOU')
 
-if s.count('A') >= 2 and s.count('A')!= len(s):
-    t = collections.deque(['A', 'A'])
-    a_cnt = 2
-    for c in s:
-        if len(t) == m:
+for _ in range(len(s)):
+    c = s.popleft()
+    if indi_x and (c not in a) and len(ans) == 0:
+        ans.appendleft(c)
+        indi_x = False
+    elif indi_a and c == 'A' and len(ans) <= 3:
+        ans.appendleft(c)
+        if len(ans) == 3:
+            indi_a = False
+    elif not indi_x and not indi_a:
+        ans.appendleft(c)
+        if len(ans) == m:
             break
-        if c == 'A' and a_cnt != 0:
-            a_cnt -= 1
-            continue
-        if c not in ['A', 'E', 'I', 'O', 'U'] and len(t) <= 3:
-            t.append(c)
-        else:
-            t.appendleft(c)
-            
-            
-    print("YES")
-    t = list(t)
-    print(''.join(t))
+
+if len(ans) == m:
+    print('YES')
+    print(''.join(ans))
 else:
-    print("NO")
+    print('NO')
