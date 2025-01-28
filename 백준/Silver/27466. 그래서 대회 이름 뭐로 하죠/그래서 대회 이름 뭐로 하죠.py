@@ -1,27 +1,51 @@
-from collections import deque
+def main():
+    import sys
+    input = sys.stdin.read
+    data = input().split()
+    
+    N, M = int(data[0]), int(data[1])
+    s = data[2]
+    
+    vowels = set('AEIOU')
+    ans = []
+    
+    # Step 1: Remove trailing vowels
+    while s and s[-1] in vowels:
+        s = s[:-1]
+    if not s:
+        print("NO")
+        return
+    
+    # Step 2: Add the first non-vowel
+    ans.append(s[-1])
+    s = s[:-1]
+    
+    # Step 3: Find the first 'A'
+    while s and s[-1] != 'A':
+        s = s[:-1]
+    if not s:
+        print("NO")
+        return
+    ans.append(s[-1])
+    s = s[:-1]
+    
+    # Step 4: Find the second 'A'
+    while s and s[-1] != 'A':
+        s = s[:-1]
+    if not s:
+        print("NO")
+        return
+    ans.append(s[-1])
+    s = s[:-1]
+    
+    # Step 5: Validate length
+    if len(s) + len(ans) < M:
+        print("NO")
+        return
+    
+    # Step 6: Construct the result
+    print("YES")
+    print(s[:M - 3] + ''.join(ans[::-1]))
 
-n, m = map(int, input().split())
-s = deque(input()[::-1])
-ans = deque([])
-indi_x, indi_a = True, True
-a = list('AEIOU')
-
-for _ in range(len(s)):
-    c = s.popleft()
-    if indi_x and (c not in a) and len(ans) == 0:
-        ans.appendleft(c)
-        indi_x = False
-    elif indi_a and c == 'A' and len(ans) <= 3:
-        ans.appendleft(c)
-        if len(ans) == 3:
-            indi_a = False
-    elif not indi_x and not indi_a:
-        ans.appendleft(c)
-        if len(ans) == m:
-            break
-
-if len(ans) == m:
-    print('YES')
-    print(''.join(ans))
-else:
-    print('NO')
+if __name__ == "__main__":
+    main()
